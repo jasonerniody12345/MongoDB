@@ -6,9 +6,9 @@ const userSchema = new mongoose.Schema ({
         type: String,
         validate: {
             validator: function(name) {
-                return name.length < 6
+                return name.length > 6
             },
-            message: "Please input your fullname name "
+            message: "Please input your full name"
         }
     },
     age: {

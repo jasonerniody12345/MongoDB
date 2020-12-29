@@ -17,10 +17,27 @@ module.exports = {
             })
         })
         .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                message: "Internal server error"
-            })
+            // console.log(err.errors.age)
+            if(err.errors.age) {
+                res.status(400).json({
+                    message: err.errors.age.message
+                })
+            }
+            else if (err.errors.name) {
+                res.status(400).json({
+                    message: err.errors.name.message
+                })
+            }
+            else if (err.errors.email) {
+                res.status(400).json({
+                    message: err.errors.email.message
+                })
+            }
+            else {
+                res.status(500).json({
+                    message: "Internal server error"
+                })
+            }
         })
     },
 
