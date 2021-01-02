@@ -7,7 +7,8 @@ module.exports = {
             name: req.body.name,
             description: req.body.description,
             status: req.body.status,
-            dueDate: req.body.dueDate
+            user: req.body.userId,
+            dueDate: new Date(req.body.dueDate)
         })
         .then(createUser => {
             console.log("sucessfully registered new todo list")
@@ -35,6 +36,7 @@ module.exports = {
             //     })
             // }
             else {
+                console.log(err)
                 res.status(500).json({
                     message: "Internal server error"
                 })
@@ -54,6 +56,12 @@ module.exports = {
             res.status(201).json({
                 message: "sucessfully updated todo list",
                 updateTodo
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "Internal server error"
             })
         })
     },
@@ -77,8 +85,8 @@ module.exports = {
     },
 
     get (req, res) {
-        Todo.findById(req.params.id, {
-        })
+        Todo.findById(req.params.id, {})
+        .populate("user")
         .then(getOne => {
             console.log("displaying the specific todo list")
             res.status(201).json({

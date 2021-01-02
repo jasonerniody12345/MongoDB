@@ -9,7 +9,7 @@ const todoSchema = new mongoose.Schema ({
             validator: function(name) {
                 return name.length > 3
             },
-            message: "Please input your valid todo name"
+            message: "Please input a longer todo name"
         }
     },
     description: {
@@ -18,7 +18,7 @@ const todoSchema = new mongoose.Schema ({
             validator: function(description) {
                 return description.length > 3
             },
-            message: "Please input a valid description"
+            message: "Please input a longer description"
         }
     },
     status: {
@@ -30,13 +30,11 @@ const todoSchema = new mongoose.Schema ({
 
     },
     dueDate: {
-        type: String,
-        validate: {
-            validator: function(dueDate) {
-                return dueDate.length > 6
-            },
-            message: "Please input a valid date format DD/MM/YY"
-        }
+        type: Date
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }
 })
 

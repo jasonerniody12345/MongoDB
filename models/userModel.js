@@ -24,7 +24,26 @@ const userSchema = new mongoose.Schema ({
             message: "Please input your valid email"
         }
     },
-    password: String
+    password: String,
+    login : {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(login) {
+                return login.length > 3
+            },
+            message: "Please input the correct password"
+        }
+    },
+    register: {
+        type: String,
+        validate: {
+            validator: function(register) {
+                return register.length > 3
+            },
+            message: "Password is too short"
+        }
+    }
 })
 
 const User = mongoose.model("User", userSchema)

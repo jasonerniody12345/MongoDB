@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 app.use(router)
 
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://jason:jason@cluster0.qd6sq.mongodb.net/Project1?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect("mongodb+srv://jason:jason@cluster0.qd6sq.mongodb.net/Project1?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
 const user = require("./routes/user")
 const todo = require("./routes/todo")
