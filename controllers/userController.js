@@ -1,5 +1,6 @@
 const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
+const { hash } = require("bcrypt")
 
 
 module.exports = {
@@ -80,7 +81,7 @@ module.exports = {
         User.find({
         })
         .then(getUser => {
-            console.log("displaying the listed users")
+            console.log("displaying all the listed users")
             res.status(201).json({
                 getUser
             })
@@ -116,11 +117,10 @@ module.exports = {
     },
 
     login (req, res) {
-        User.find(req.boy.email, {
-        })
-        .then(login => {
-            if (password == true) {
-                const token = jwt.sign ({...result[0]}, memek)
+        User.findOne({email: req.body.email})
+        .then(userInfo => {
+            if (req.body.password === userInfo.password) {
+                const token = jwt.sign ({...userInfo}, "memek")
                 console.log("successfuly login")
                 res.status(201).json({
                     message: "sucessfully login",

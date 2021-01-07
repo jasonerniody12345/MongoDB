@@ -24,10 +24,8 @@ const userSchema = new mongoose.Schema ({
             message: "Please input your valid email"
         }
     },
-    password: String,
-    login : {
+    password : {
         type: String,
-        required: true,
         validate: {
             validator: function(login) {
                 return login.length > 3
@@ -43,6 +41,17 @@ const userSchema = new mongoose.Schema ({
             },
             message: "Password is too short"
         }
+    },
+    //use beforeCreate & PreSave (hash)
+})
+
+userSchema.pre("save", async function(next) {
+    try{
+        const salt = await bcrypt.genSalt(10)
+        const hash = await bcrypt.hash(salt)
+    }
+    catch(error){
+        next(error)
     }
 })
 

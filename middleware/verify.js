@@ -1,12 +1,16 @@
-  const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
+const Todo = require("../models/todoModel")
 
 module.exports = {
 
     authenticate (req, res, next) {
         
         try {
-            const key = jwt.verify(req.headers.token, memek)
+            const key = jwt.verify(req.headers.token, "memek")
+            req.userID = key._doc._id
+            // console.log(key._doc._id)
             next()
+
         }
         catch(err){
             res.status(401).json({
@@ -15,26 +19,30 @@ module.exports = {
         }
     },
 
-    // authorize (req, res, next) {
+    authorize (req, res, next) {
 
-    //     try {
-    //        const access = jwt.verify(req.headers.token, memek)
-    //        if (access.name === name) {
-    //            next()
-    //        } 
-    //        else {   
-    //            res.status(401).json({
-    //                message: "Unauthorized"
-    //            })
-    //        }
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //         res.status(500).json({
-    //             message: "internal server error"
-    //         })
+        try {
+            Todo.findById(req.params.id, {
+            })
+            .then(todoData => {
+                const access = jwt.verify(req.headers.token, "memek")
+                if (access.todoData === access._doc._id) {
+                    next()
+                } 
+                else {   
+                    res.status(401).json({
+                        message: "Unauthorized"
+                    })
+                }
+            })
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).json({
+                message: "internal server error"
+            })
 
-    //     }
-    // }
+        }
+    }
 
 }

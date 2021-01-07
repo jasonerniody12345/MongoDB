@@ -3,11 +3,12 @@ const Todo = require("../models/todoModel")
 module.exports = {
 
     create (req, res) {
+        console.log(req.userID)
         Todo.create({
+            user: req.userID,
             name: req.body.name,
             description: req.body.description,
             status: req.body.status,
-            user: req.body.userId,
             dueDate: new Date(req.body.dueDate)
         })
         .then(createUser => {

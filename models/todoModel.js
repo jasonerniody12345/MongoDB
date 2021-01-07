@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose
-const today = new Date()
 
 const todoSchema = new mongoose.Schema ({
     name: {
@@ -30,7 +29,7 @@ const todoSchema = new mongoose.Schema ({
 
     },
     dueDate: {
-        type: Date
+        type: String
     },
     user: {
         type: Schema.Types.ObjectId,

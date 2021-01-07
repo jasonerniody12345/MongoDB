@@ -15,7 +15,7 @@ const user = require("./routes/user")
 const todo = require("./routes/todo")
 
 app.use("/users", user)
-app.use("/todo", todo)
+app.use("/todos", todo)
 
 app.listen (port, () => {
     console.log("Listening" + " " + port)
