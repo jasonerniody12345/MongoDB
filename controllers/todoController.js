@@ -107,6 +107,13 @@ module.exports = {
                 })
             }
         })
-    }
+    },
 
+    addTag (req, res) {
+        Todo.findByIdAndUpdate(req.params.id, {
+            $push: {
+                tags: req.body.tag
+            } 
+        }, {new: true})
+    }   
 }

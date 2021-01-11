@@ -34,7 +34,13 @@ const todoSchema = new mongoose.Schema ({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    }
+    },
+    tags: [
+        {
+        type: String
+        }
+    ]
+
 })
 
 const Todo = mongoose.model("Todo", todoSchema)

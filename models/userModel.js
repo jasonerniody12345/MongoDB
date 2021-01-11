@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 const { Schema } = mongoose
 
 const userSchema = new mongoose.Schema ({
@@ -45,16 +46,18 @@ const userSchema = new mongoose.Schema ({
     //use beforeCreate & PreSave (hash)
 })
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", function (next) {
     try{
-        const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(salt)
+        const salt = bcrypt.genSaltSync(10)
+        const hash = bcrypt.hashSync(this.password, salt)
+        this.password = hash 
+        next()
     }
     catch(error){
         next(error)
     }
 })
-
+//suruh eltim ngajarin await and async
 const User = mongoose.model("User", userSchema)
 
 module.exports = User
