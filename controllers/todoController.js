@@ -115,5 +115,16 @@ module.exports = {
                 tags: req.body.tag
             } 
         }, {new: true})
-    }   
+    .then (addTag=> {
+        res.status(200).json({
+           addTag 
+        })
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+    })
+    }
 }

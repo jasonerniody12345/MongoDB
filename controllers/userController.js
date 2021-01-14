@@ -1,7 +1,6 @@
 const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
-const { hash } = require("bcrypt")
-
+const bcrypt = require("bcrypt")
 
 module.exports = {
 
@@ -117,29 +116,31 @@ module.exports = {
     },
 
     login (req, res) {
+        console.log(req.body.email)
         User.findOne({email: req.body.email})
         .then(userInfo => {
-            if (req.body.password === userInfo.password) {
-                const token = jwt.sign ({...userInfo}, "memek")
+            // console.log(req.body.password)
+            // console.log(userInfo.password)
+            // console.log(bcrypt.compareSync(req.body.password, userInfo.password))
+            if (bcrypt.compareSync(req.body.password, userInfo.password) === true) {
+                const token = jwt.sign ({...userInfo}, process.env.KEY)
                 console.log("successfuly login")
                 res.status(201).json({
                     message: "sucessfully login",
                     accessToken: token
                 })
             }
+            else {
+                res.status(401).json({
+                    message: "password or email is invalid"
+                })
+            }
         })
         .catch(err => {
             console.log(err)
-            if (err.errors.email) {
-                res.status(400).json({
-                    message: err.errors.email.message
-                })
-            }
-            else if (err.errors.password) {
-                res.status(400).json({
-                    message: err.erors.password.message
-                })
-            }
+            res.status(500).json({
+                message: "internal server error"
+            })   
         })
 
     }

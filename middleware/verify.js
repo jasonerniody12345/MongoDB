@@ -6,7 +6,7 @@ module.exports = {
     authenticate (req, res, next) {
         
         try {
-            const key = jwt.verify(req.headers.token, "memek")
+            const key = jwt.verify(req.headers.token, process.env.KEY)
             req.userID = key._doc._id
             // console.log(key._doc._id)
             next()
@@ -25,7 +25,7 @@ module.exports = {
             Todo.findById(req.params.id, {
             })
             .then(todoData => {
-                const access = jwt.verify(req.headers.token, "memek")
+                const access = jwt.verify(req.headers.token, process.env.KEY)
         // cara ngecek datatype  // console.log(typeof todoData.user)
                 // console.log(typeof access._doc._id)
                 if (String(todoData.user) === access._doc._id) {

@@ -1,3 +1,6 @@
+const env = require("dotenv")
+env.config()
+
 const bodyParser = require("body-parser")
 const express = require("express")
 const app = express()
