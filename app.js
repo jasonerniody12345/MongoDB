@@ -3,6 +3,7 @@ env.config()
 
 const bodyParser = require("body-parser")
 const express = require("express")
+const cors = require('cors')
 const app = express()
 const router  = express.Router()
 const port = 3000
@@ -17,6 +18,7 @@ mongoose.connect("mongodb+srv://jason:jason@cluster0.qd6sq.mongodb.net/Project1?
 const user = require("./routes/user")
 const todo = require("./routes/todo")
 
+app.use(cors())
 app.use("/users", user)
 app.use("/todos", todo)
 
