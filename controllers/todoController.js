@@ -109,6 +109,23 @@ module.exports = {
         })
     },
 
+    getTodo (req, res) {
+        Todo.find({
+        })
+        .then(getTodo => {
+            console.log("displaying all the listed todos")
+            res.status(201).json({
+                getTodo
+            })
+        })
+        .catch(err => {
+            console.log("Interal server erro")
+            res.status(500).json({
+                message: "Internal server error"
+            })
+        })
+    },
+
     addTag (req, res) {
         Todo.findByIdAndUpdate(req.params.id, {
             $push: {
