@@ -12,10 +12,6 @@ const userSchema = new mongoose.Schema ({
             message: "Please input your full name"
         }
     },
-    age: {
-        type: Number,
-        min: [18, "You are too young"]
-    },
     email: {
         type: String,
         validate: {

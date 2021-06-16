@@ -7,7 +7,6 @@ module.exports = {
     create (req, res) {
         User.create({
             name: req.body.name,
-            age: req.body.age,
             email: req.body.email,
             password: req.body.password
         })
@@ -46,7 +45,6 @@ module.exports = {
     update (req, res) {
         User.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
-            age: req.body.age,
             email: req.body.email,
             password: req.body.password
         })
@@ -96,7 +94,6 @@ module.exports = {
     register (req, res) {
         User.create({
             name: req.body.name,
-            age: req.body.age,
             email: req.body.email,
             password: req.body.password
         })
