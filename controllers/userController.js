@@ -18,13 +18,9 @@ module.exports = {
             })
         })
         .catch(err => {
+            console.log(err)
             // console.log(err.errors.age)
-            if(err.errors.age) {
-                res.status(400).json({
-                    message: err.errors.age.message
-                })
-            }
-            else if (err.errors.name) {
+            if (err.errors.name) {
                 res.status(400).json({
                     message: err.errors.name.message
                 })
@@ -114,9 +110,9 @@ module.exports = {
 
     login (req, res) {
         // console.log(req.body.email)
+        console.log(req.body)
         User.findOne({email: req.body.email})
         .then(userInfo => {
-            // console.log(req.body.password)
             // console.log(userInfo.password)
             // console.log(bcrypt.compareSync(req.body.password, userInfo.password))
             if (bcrypt.compareSync(req.body.password, userInfo.password) === true) {
@@ -139,7 +135,6 @@ module.exports = {
                 message: "internal server error"
             })   
         })
-
     }
 
 }

@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema ({
             validator: function(name) {
                 return name.length > 6
             },
-            message: "Please input your full name"
+            message: "Please input valid full name"
         }
     },
     email: {
