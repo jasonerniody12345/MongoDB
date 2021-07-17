@@ -85,11 +85,15 @@ module.exports = {
         })
     },
 
-    get (req, res) {
-        Todo.findById(req.params.id, {})
+    getByUserId (req, res) {
+        console.log(req.params)
+        console.log(req.userID)
+        Todo.find({
+            user: req.userID
+        })
         .populate("user")
         .then(getOne => {
-            console.log("displaying the specific todo list")
+            console.log("displaying the specific todo list" + getOne)
             res.status(201).json({
                 getOne
             })

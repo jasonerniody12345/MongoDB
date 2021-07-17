@@ -4,7 +4,7 @@ const verify = require("../middleware/verify")
 const router = express.Router()
 
 
-router.get("/getTodo/:id", todoController.get)
+router.get("/getTodo", verify.authenticate, todoController.getByUserId)
 router.get("/getAllTodo", todoController.getTodo)
 router.post("/create", verify.authenticate, todoController.create)
 router.put("/update/:id", verify.authenticate, verify.authorize, todoController.update)
