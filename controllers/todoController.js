@@ -46,6 +46,7 @@ module.exports = {
     },
 
     update (req, res) {
+        // console.log("-----------",req.body)
         Todo.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
             description: req.body.description,
