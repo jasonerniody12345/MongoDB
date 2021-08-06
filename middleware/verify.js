@@ -28,7 +28,7 @@ module.exports = {
                 const access = jwt.verify(req.headers.token, process.env.KEY)
         // cara ngecek datatype  // console.log(typeof todoData.user)
                 // console.log(typeof access._doc._id)
-                if (String(todoData.user) === access._doc._id) {
+                if (String(todoData.user._id) === access._doc._id) {
                     next()
                 } 
                 else {   
