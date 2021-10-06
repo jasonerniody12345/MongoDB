@@ -111,7 +111,7 @@ module.exports = {
 
     login (req, res) {
         // console.log(req.body.email)
-        console.log(req.body)
+        // console.log(req.body)
         User.findOne({email: req.body.email})
         .then(userInfo => {
             // console.log(userInfo.password)
@@ -139,6 +139,20 @@ module.exports = {
                 message: "internal server error"
             })   
         })
+    },
+
+    verify (req, res) {
+        try {
+            const key = jwt.verify(req.headers.token, process.env.KEY)
+            res.status(200).json({
+                message: "authenticated"
+            })
+        }
+        catch (err) {
+            res.status(401).json({
+                message: "unauthenticated"
+            })
+        }
     }
 
 }
