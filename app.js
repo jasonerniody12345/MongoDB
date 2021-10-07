@@ -22,9 +22,12 @@ app.use(cors())
 app.use("/users", user)
 app.use("/todos", todo)
 
-app.listen (port, () => {
+// app.listen (port, () => {
+//     console.log("Listening" + " " + port)
+// })
+
+app.listen (process.env.PORT || 3000 , () => {
     console.log("Listening" + " " + port)
 })
-
 //bikin routing crud for todo
 //name(required true), description, status(1 or 0)(boolean), startDate(auto in model), dueDate(user input), findOneByID
