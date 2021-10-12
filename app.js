@@ -6,7 +6,7 @@ const express = require("express")
 const cors = require('cors')
 const app = express()
 const router  = express.Router()
-const port = 8080
+const port = 3000
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -26,7 +26,7 @@ app.use("/todos", todo)
 //     console.log("Listening" + " " + port)
 // })
 
-app.listen (process.env.PORT || 5000  , () => {
+app.listen (process.env.PORT || port  , () => {
     console.log("Listening" + " " + port)
 })
 
