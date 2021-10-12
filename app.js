@@ -6,7 +6,7 @@ const express = require("express")
 const cors = require('cors')
 const app = express()
 const router  = express.Router()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -26,9 +26,6 @@ app.use("/todos", todo)
 //     console.log("Listening" + " " + port)
 // })
 
-app.listen (process.env.PORT || port  , () => {
+app.listen (port  , () => {
     console.log("Listening" + " " + port)
 })
-
-//bikin routing crud for todo
-//name(required true), description, status(1 or 0)(boolean), startDate(auto in model), dueDate(user input), findOneByID
