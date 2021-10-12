@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt")
 module.exports = {
 
     create (req, res) {
-        console.log("==================" ,req.body, "==================")
         User.create({
             name: req.body.name,
             email: req.body.email,
@@ -21,10 +20,21 @@ module.exports = {
         .catch(err => {
             console.log(err)
             // console.log(err.errors.age)
-
+            if (err.errors.name) {
+                res.status(400).json({
+                    message: err.errors.name.message
+                })
+            }
+            else if (err.errors.email) {
+                res.status(400).json({
+                    message: err.errors.email.message
+                })
+            }
+            else {
                 res.status(500).json({
                     message: "Internal server error"
                 })
+            }
         })
     },
 
