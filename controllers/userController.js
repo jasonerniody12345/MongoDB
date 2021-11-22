@@ -116,18 +116,25 @@ module.exports = {
         .then(userInfo => {
             // console.log(userInfo.password)
             // console.log(bcrypt.compareSync(req.body.password, userInfo.password))
-            if (bcrypt.compareSync(req.body.password, userInfo.password) === true) {
-                const token = jwt.sign ({...userInfo}, process.env.KEY)
-                console.log("successfuly login")
-                res.status(201).json({
-                    message: "sucessfully login",                   
-                    accessToken: token
-                })
+            if(userInfo){
+                if (bcrypt.compareSync(req.body.password, userInfo.password) === true) {
+                    const token = jwt.sign ({...userInfo}, process.env.KEY)
+                    console.log("successfuly login")
+                    res.status(201).json({
+                        message: "sucessfully login",                   
+                        accessToken: token
+                    })
+                }
+                else {
+                    console.log(bcrypt.compareSync(req.body.password, userInfo.password))
+                    console.log(userInfo)
+                    console.log(req.body)
+                    res.status(401).json({
+                        message: "password or email is invalid"
+                    })
+                }
             }
             else {
-                console.log(bcrypt.compareSync(req.body.password, userInfo.password))
-                console.log(userInfo)
-                console.log(req.body)
                 res.status(401).json({
                     message: "password or email is invalid"
                 })
